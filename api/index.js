@@ -118,7 +118,7 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("loggedOut");
 });
 
-const server = app.listen(4000, () => console.log("Server Started"));
+const server = app.listen(process.env.PORT, () => console.log("Server Started"));
 
 const wss = new ws.WebSocketServer({ server });
 
