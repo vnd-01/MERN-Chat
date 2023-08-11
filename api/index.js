@@ -81,9 +81,12 @@ app.post("/login", async (req, res) => {
         jwtSecret,
         {},
         (err, token) => {
-          res.cookie("token", token).status(201).json({
-            id: foundUser._id,
-          });
+          res
+            .cookie("token", token, { sameSite: "none", secure: true })
+            .status(201)
+            .json({
+              id: foundUser._id,
+            });
         }
       );
     }
@@ -104,9 +107,12 @@ app.post("/register", async (req, res) => {
       {},
       (err, token) => {
         if (err) throw err;
-        res.cookie("token", token).status(201).json({
-          id: createdUser._id,
-        });
+        res
+          .cookie("token", token, { sameSite: "none", secure: true })
+          .status(201)
+          .json({
+            id: createdUser._id,
+          });
       }
     );
   } catch (error) {
