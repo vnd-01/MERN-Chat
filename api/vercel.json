@@ -3,12 +3,12 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "server.js"
+        "dest": "index.js"
       }
     ],
     "env": {
-      "MONGODB_URI": "your-mongodb-uri",
-      "JWT_SECRET": "your-jwt-secret"
+      "MONGODB_URI": "mongodb+srv://vikas:vikas@cluster0.x1l9nu0.mongodb.net/?retryWrites=true&w=majority",
+      "JWT_SECRET": "vikasnaik"
     },
     "build": {
       "functions": "api",
