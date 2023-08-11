@@ -143,9 +143,9 @@ wss.on("connection", (connection, req) => {
     connection.ping();
     connection.deathTimer = setTimeout(() => {
       connection.isAlive = false;
+      clearInterval(connection.timer);
       connection.terminate();
       notifyAboutOnlinePeople();
-      clearInterval(connection.timer);
       //console.log("dead");
     }, 1000);
   }, 3000);
@@ -157,7 +157,7 @@ wss.on("connection", (connection, req) => {
   const cookies = req.headers.cookie;
   if (cookies) {
     const tokenCookieString = cookies
-      .split(",")
+      .split(";")
       .find((str) => str.startsWith("token="));
     if (tokenCookieString) {
       const token = tokenCookieString.split("=")[1];
