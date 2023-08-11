@@ -16,7 +16,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: "https://mern-chat-client-vnd.vercel.app",
   })
 );
 
