@@ -125,18 +125,18 @@ const server = app.listen(port, () => console.log("Server Started"));
 const wss = new ws.WebSocketServer({ server });
 
 wss.on("connection", (connection, req) => {
-  function notifyAboutOnlinePeople() {
-    [...wss.clients].forEach((client) => {
-      client.send(
-        JSON.stringify({
-          online: [...wss.clients].map((c) => ({
-            userId: c.userId,
-            username: c.username,
-          })),
-        })
-      );
-    });
-  }
+  // function notifyAboutOnlinePeople() {
+  //   [...wss.clients].forEach((client) => {
+  //     client.send(
+  //       JSON.stringify({
+  //         online: [...wss.clients].map((c) => ({
+  //           userId: c.userId,
+  //           username: c.username,
+  //         })),
+  //       })
+  //     );
+  //   });
+  // }
 
   connection.isAlive = true;
   connection.timer = setInterval(() => {
@@ -145,7 +145,15 @@ wss.on("connection", (connection, req) => {
       connection.isAlive = false;
       clearInterval(connection.timer);
       connection.terminate();
-      notifyAboutOnlinePeople();
+      connection.send(
+        JSON.stringify({
+          online: [...wss.clients].map((c) => ({
+            userId: c.userId,
+            username: c.username,
+          })),
+        })
+      );
+      //notifyAboutOnlinePeople();
       //console.log("dead");
     }, 1000);
   }, 3000);
@@ -196,5 +204,12 @@ wss.on("connection", (connection, req) => {
     }
   });
 
-  notifyAboutOnlinePeople();
+  connection.send(
+    JSON.stringify({
+      online: [...wss.clients].map((c) => ({
+        userId: c.userId,
+        username: c.username,
+      })),
+    })
+  );
 });
