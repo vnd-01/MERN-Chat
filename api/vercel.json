@@ -1,19 +1,12 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "index.js"
-      }
+    "version":2,
+    "builds":[
+        {"src":"*.js","use":"@vercel/node"}
     ],
-    "env": {
-      "MONGODB_URI": "mongodb+srv://vikas:vikas@cluster0.x1l9nu0.mongodb.net/?retryWrites=true&w=majority",
-      "JWT_SECRET": "vikasnaik"
-    },
-    "build": {
-      "websockets": {
-        "forwardHeaders": "true"
-      }
-    }
-  }
-  
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"/"
+        }
+    ]
+}
