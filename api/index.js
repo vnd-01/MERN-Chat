@@ -171,7 +171,7 @@ wss.on("connection", (connection, req) => {
   const cookies = req.headers.cookie;
   if (cookies) {
     const tokenCookieString = cookies
-      .split(";")
+      .split(",")
       .find((str) => str.startsWith("token="));
     if (tokenCookieString) {
       const token = tokenCookieString.split("=")[1];
