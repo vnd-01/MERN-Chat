@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const ws = require("ws");
 
+
 dotenv.config();
 const salt = bcrypt.genSaltSync(10);
 const jwtSecret = process.env.JWT_SECRET;
@@ -136,7 +137,8 @@ const port = process.env.PORT || 4000;
 
 const server = app.listen(port, () => console.log("Server Started"));
 
-const wss = new ws.WebSocketServer({ server });
+
+const wss = new ws.Server({ server });
 
 wss.on("connection", (connection, req) => {
   function notifyAboutOnlinePeople() {
