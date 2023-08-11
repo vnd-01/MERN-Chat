@@ -20,7 +20,7 @@ const Chat = () => {
   }, []);
 
   function connectToWs() {
-    const ws = new WebSocket("wss://https://mern-chat-api-vnd.vercel.app");
+    const ws = new WebSocket("ws://localhost:4000");
     setWs(ws);
     ws.addEventListener("message", handleMessage);
     ws.addEventListener("close", () => {

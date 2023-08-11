@@ -4,7 +4,7 @@ import { UserContext } from "./UserContext";
 import Chat from "./components/Chat";
 
 const Pages = () => {
-  const { username,id } = useContext(UserContext);
+  const { username} = useContext(UserContext);
   if(username){
     return <Chat/>;
   }

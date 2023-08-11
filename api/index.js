@@ -16,7 +16,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["https://mern-chat-client-vnd.vercel.app"],
+    origin: ["http://localhost:5173"],
   })
 );
 
@@ -139,18 +139,18 @@ const server = app.listen(port, () => console.log("Server Started"));
 const wss = new ws.WebSocketServer({ server });
 
 wss.on("connection", (connection, req) => {
-  // function notifyAboutOnlinePeople() {
-  //   [...wss.clients].forEach((client) => {
-  //     client.send(
-  //       JSON.stringify({
-  //         online: [...wss.clients].map((c) => ({
-  //           userId: c.userId,
-  //           username: c.username,
-  //         })),
-  //       })
-  //     );
-  //   });
-  // }
+  function notifyAboutOnlinePeople() {
+    [...wss.clients].forEach((client) => {
+      client.send(
+        JSON.stringify({
+          online: [...wss.clients].map((c) => ({
+            userId: c.userId,
+            username: c.username,
+          })),
+        })
+      );
+    });
+  }
 
   connection.isAlive = true;
   connection.timer = setInterval(() => {
@@ -159,15 +159,7 @@ wss.on("connection", (connection, req) => {
       connection.isAlive = false;
       clearInterval(connection.timer);
       connection.terminate();
-      connection.send(
-        JSON.stringify({
-          online: [...wss.clients].map((c) => ({
-            userId: c.userId,
-            username: c.username,
-          })),
-        })
-      );
-      //notifyAboutOnlinePeople();
+      notifyAboutOnlinePeople();
       //console.log("dead");
     }, 1000);
   }, 3000);
@@ -217,13 +209,5 @@ wss.on("connection", (connection, req) => {
         );
     }
   });
-
-  connection.send(
-    JSON.stringify({
-      online: [...wss.clients].map((c) => ({
-        userId: c.userId,
-        username: c.username,
-      })),
-    })
-  );
+  notifyAboutOnlinePeople();
 });
