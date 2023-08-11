@@ -23,12 +23,12 @@ const Chat = () => {
     const ws = new WebSocket("wss://https://mern-chat-api-vnd.vercel.app");
     setWs(ws);
     ws.addEventListener("message", handleMessage);
-    // ws.addEventListener("close", () => {
-    //   setTimeout(() => {
-    //     console.log("Reconnecting...");
-    //     connectToWs();
-    //   }, 1000);
-    // });
+    ws.addEventListener("close", () => {
+      setTimeout(() => {
+        console.log("Reconnecting...");
+        connectToWs();
+      }, 1000);
+    });
   }
 
   useEffect(() => {
