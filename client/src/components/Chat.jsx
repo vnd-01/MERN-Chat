@@ -110,7 +110,6 @@ const Chat = () => {
       setWs(null);
       setId(null);
       setUserName(null);
-      return <RegisterAndLogin/>
     });
   }
 
