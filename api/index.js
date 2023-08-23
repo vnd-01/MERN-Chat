@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const ws = require("ws");
 
-
 dotenv.config();
 const salt = bcrypt.genSaltSync(10);
 const jwtSecret = process.env.JWT_SECRET;
@@ -130,13 +129,14 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  res.cookie("token", "").json("loggedOut");
+  res
+    .cookie("token", "", { httpOnly: true, sameSite: "none", secure: true })
+    .json("loggedOut");
 });
 
 const port = process.env.PORT || 4000;
 
 const server = app.listen(port, () => console.log("Server Started"));
-
 
 const wss = new ws.Server({ server });
 
