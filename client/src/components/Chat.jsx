@@ -17,7 +17,7 @@ const Chat = () => {
 
   useEffect(() => {
     connectToWs();
-  }, []);
+  }, [selectedUserId]);
 
   function connectToWs() {
     const ws = new WebSocket("wss://mern-chat-v5l9.onrender.com");
@@ -95,7 +95,7 @@ const Chat = () => {
   useEffect(() => {
     const div = divUnderMessaages.current;
     if (div) {
-      div.scrollIntoView({ behavior: "smooth" });
+      div.scrollIntoView({ behavior: "smooth",block:'end'});
     }
   }, [messages]);
 
