@@ -4,6 +4,7 @@ import { UserContext } from "../UserContext.jsx";
 import { uniqBy } from "lodash";
 import axios from "axios";
 import Contact from "./Contact";
+import RegisterAndLogin from "./RegisterAndLogin";
 
 const Chat = () => {
   const [ws, setWs] = useState(null);
@@ -109,6 +110,7 @@ const Chat = () => {
       setWs(null);
       setId(null);
       setUserName(null);
+      return <RegisterAndLogin/>
     });
   }
 
